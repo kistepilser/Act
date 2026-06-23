@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Акт приема-передачи смены — Ломбард</title>
+    <meta name="description" content="Автоматизация заполнения Акта приема-передачи наличных денежных средств и имущества для ломбарда">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app">
+
+        <!-- ===== CONTROL PANEL ===== -->
+        <aside class="panel" id="controlPanel">
+            <div class="panel-scroll">
+                <div class="panel-header">
+                    <div class="panel-logo">📋</div>
+                    <h1>Акт приема-передачи</h1>
+                    <p class="panel-subtitle">Заполните данные для формирования документа</p>
+                </div>
+
+                <!-- Section 1: Cash -->
+                <div class="panel-section">
+                    <h2 class="section-title"><span class="section-icon">💰</span> Денежные средства</h2>
+                    <div class="form-group">
+                        <label for="cashInput">Сумма наличных</label>
+                        <input type="text" id="cashInput" class="form-input" placeholder="160369.80" inputmode="decimal">
+                        <span class="form-hint">Формат: рубли.копейки</span>
+                    </div>
+                </div>
+
+                <!-- Section 2: Precious metals -->
+                <div class="panel-section">
+                    <h2 class="section-title"><span class="section-icon">💎</span> Изделия из драг. металлов</h2>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="preciousQty">Кол-во (шт.)</label>
+                            <input type="number" id="preciousQty" class="form-input" placeholder="341" min="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="preciousSum">Сумма (руб.)</label>
+                            <input type="text" id="preciousSum" class="form-input" placeholder="7195494.00" inputmode="decimal">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 3: Other items -->
+                <div class="panel-section">
+                    <h2 class="section-title"><span class="section-icon">📦</span> Изделия прочие</h2>
+                    <p class="form-note">Аппаратура + Текстиль → суммируются в «Прочее»</p>
+                    <h3 class="subsection-title">Аппаратура</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="apparaturaQty">Кол-во (шт.)</label>
+                            <input type="number" id="apparaturaQty" class="form-input" placeholder="0" min="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="apparaturaSum">Сумма (руб.)</label>
+                            <input type="text" id="apparaturaSum" class="form-input" placeholder="0.00" inputmode="decimal">
+                        </div>
+                    </div>
+                    <h3 class="subsection-title">Текстиль</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="textileQty">Кол-во (шт.)</label>
+                            <input type="number" id="textileQty" class="form-input" placeholder="0" min="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="textileSum">Сумма (руб.)</label>
+                            <input type="text" id="textileSum" class="form-input" placeholder="0.00" inputmode="decimal">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 6: Showcase -->
+                <div class="panel-section">
+                    <h2 class="section-title"><span class="section-icon">🏪</span> Витрина ломбарда</h2>
+                    <h3 class="subsection-title">Изд. из драг. металлов</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="vitDragQty">Кол-во (шт.)</label>
+                            <input type="number" id="vitDragQty" class="form-input" placeholder="578" min="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="vitDragSum">Сумма (руб.)</label>
+                            <input type="text" id="vitDragSum" class="form-input" placeholder="20373254.92" inputmode="decimal">
+                        </div>
+                    </div>
+                    <h3 class="subsection-title">Мех</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="vitFurQty">Кол-во (шт.)</label>
+                            <input type="number" id="vitFurQty" class="form-input" placeholder="10" min="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="vitFurSum">Сумма (руб.)</label>
+                            <input type="text" id="vitFurSum" class="form-input" placeholder="258945.00" inputmode="decimal">
+                        </div>
+                    </div>
+                    <h3 class="subsection-title">Техника</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="vitTechQty">Кол-во (шт.)</label>
+                            <input type="number" id="vitTechQty" class="form-input" placeholder="35" min="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="vitTechSum">Сумма (руб.)</label>
+                            <input type="text" id="vitTechSum" class="form-input" placeholder="964639.97" inputmode="decimal">
+                        </div>
+                    </div>
+                    <h3 class="subsection-title">Прочее</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="vitOtherQty">Кол-во (шт.)</label>
+                            <input type="number" id="vitOtherQty" class="form-input" placeholder="0" min="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="vitOtherSum">Сумма (руб.)</label>
+                            <input type="text" id="vitOtherSum" class="form-input" placeholder="0.00" inputmode="decimal">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Signatures -->
+                <div class="panel-section">
+                    <h2 class="section-title"><span class="section-icon">✍️</span> Подписи</h2>
+                    <div class="form-group">
+                        <label for="surrSelect">Сдал</label>
+                        <select id="surrSelect" class="form-input">
+                            <option value="Ишаева Е.Д.">Ишаева Е.Д.</option>
+                            <option value="Балухтин И.П." selected>Балухтин И.П.</option>
+                            <option value="Дуненкова В.В.">Дуненкова В.В.</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="surrH">Время сдачи (ч)</label>
+                            <input type="number" id="surrH" class="form-input" value="21" min="0" max="23">
+                        </div>
+                        <div class="form-group">
+                            <label for="surrM">Минуты</label>
+                            <input type="number" id="surrM" class="form-input" value="00" min="0" max="59">
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-top:12px">
+                        <label for="accSelect">Принял</label>
+                        <select id="accSelect" class="form-input">
+                            <option value="Ишаева Е.Д.">Ишаева Е.Д.</option>
+                            <option value="Балухтин И.П." selected>Балухтин И.П.</option>
+                            <option value="Дуненкова В.В.">Дуненкова В.В.</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="accH">Время приёма (ч)</label>
+                            <input type="number" id="accH" class="form-input" value="8" min="0" max="23">
+                        </div>
+                        <div class="form-group">
+                            <label for="accM">Минуты</label>
+                            <input type="number" id="accM" class="form-input" value="00" min="0" max="59">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Print Button -->
+                <button class="btn-print" id="btnPrint">
+                    <span class="btn-icon">🖨️</span>
+                    Распечатать документ
+                </button>
+            </div>
+        </aside>
+
+        <!-- ===== DOCUMENT PREVIEW ===== -->
+        <main class="doc-area">
+            <div class="doc-page" id="docPage">
+
+                <!-- Header -->
+                <p style="text-align:right; margin-bottom:15px; font-size:11pt; color:#000;">Приложение №1 к приказу №23 от 20.02.2018</p>
+                <p class="dt" style="font-size:15pt; margin:1px 0;"><b>АКТ</b></p>
+                <p class="dt">приема-передачи наличных денежных средств и имущества</p>
+                <p class="dt">принятого под залог и на хранение, по состоянию на <span class="val val-xs" id="docDay"></span> <span class="val val-md" id="docMonth"></span> <span id="docYear"></span> г.</p>
+                <p class="dt">в <span class="val val-xl">Ломбардном отделении "Молодежный"</span></p>
+                <p class="dc">(наименование объекта)</p>
+
+                <!-- Section 1: Cash (Текст прижат влево, поля стоят на месте) -->
+                <table style="width: 100%; margin-top: 15px; border-collapse: collapse; font-size: 11pt;">
+                    <tr>
+                        <td style="text-align: left; padding-right: 5px; white-space: nowrap;">1. Денежные средства в сумме:</td>
+                        <td style="width: 120px; text-align: center; vertical-align: bottom;"><div class="val" style="width: 100%;" id="cashRub1"></div></td>
+                        <td style="width: 40px; text-align: center; vertical-align: bottom;">руб.</td>
+                        <td style="width: 40px; text-align: center; vertical-align: bottom;"><div class="val" style="width: 100%;" id="cashKop1"></div></td>
+                        <td style="width: 35px; text-align: left; padding-left: 3px; vertical-align: bottom;">коп.</td>
+                        <td style="width: 25%;"></td>
+                    </tr>
+                </table>
+                <p class="dc" style="margin-top: 1px;">(указать сумму цифрами)</p>
+                <p class="dl di" style="text-align: center; margin-top: 0;"><span class="val val-full" id="cashWords1"></span></p>
+                <p class="dc">(указать сумму прописью)</p>
+
+                <table style="width: 100%; margin-top: 2px; border-collapse: collapse; font-size: 11pt;">
+                    <tr>
+                        <td style="text-align: left; padding-right: 5px; white-space: nowrap;">ИТОГО фактическое наличие на сумму:</td>
+                        <td style="width: 120px; text-align: center; vertical-align: bottom;"><div class="val" style="width: 100%;" id="cashRub2"></div></td>
+                        <td style="width: 40px; text-align: center; vertical-align: bottom;">руб.</td>
+                        <td style="width: 40px; text-align: center; vertical-align: bottom;"><div class="val" style="width: 100%;" id="cashKop2"></div></td>
+                        <td style="width: 35px; text-align: left; padding-left: 3px; vertical-align: bottom;">коп.</td>
+                        <td style="width: 25%;"></td>
+                    </tr>
+                </table>
+                <p class="dc" style="margin-top: 1px;">(указать сумму цифрами)</p>
+                <p class="dl di" style="text-align: center; margin-top: 0;"><span class="val val-full" id="cashWords2"></span></p>
+                <p class="dc">(указать сумму прописью)</p>
+
+                <table style="width: 100%; margin-top: 2px; border-collapse: collapse; font-size: 11pt;">
+                    <tr>
+                        <td style="text-align: left; padding-right: 5px; white-space: nowrap;">По учётным данным на сумму:</td>
+                        <td style="width: 120px; text-align: center; vertical-align: bottom;"><div class="val" style="width: 100%;" id="cashRub3"></div></td>
+                        <td style="width: 40px; text-align: center; vertical-align: bottom;">руб.</td>
+                        <td style="width: 40px; text-align: center; vertical-align: bottom;"><div class="val" style="width: 100%;" id="cashKop3"></div></td>
+                        <td style="width: 35px; text-align: left; padding-left: 3px; vertical-align: bottom;">коп.</td>
+                        <td style="width: 25%;"></td>
+                    </tr>
+                </table>
+                <p class="dc" style="margin-top: 1px;">(указать сумму цифрами)</p>
+                <p class="dl di" style="text-align: center; margin-top: 0;"><span class="val val-full" id="cashWords3"></span></p>
+                <p class="dc">(указать сумму прописью)</p>
+
+                <!-- Расхождения (Название слева, данные справа) -->
+                <table style="width: 100%; margin-top: 10px; border-collapse: collapse; font-size: 11pt;">
+                    <tr>
+                        <td rowspan="2" style="vertical-align: top; padding-top: 0px; text-align: left;"><b>Наличие расхождений:</b></td>
+                        <td style="text-align: right; padding-right: 5px; width: 80px;">излишки</td>
+                        <td style="width: 80px; text-align: center;"><span class="val" style="width: 100%;">-</span></td>
+                        <td style="width: 40px; text-align: center;">руб.</td>
+                        <td style="width: 50px; text-align: center;"><span class="val" style="width: 100%;">-</span></td>
+                        <td style="width: 40px; text-align: left; padding-left: 3px;">коп.</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: right; padding-right: 5px;">недостача</td>
+                        <td style="text-align: center;"><span class="val" style="width: 100%;">-</span></td>
+                        <td style="text-align: center;">руб.</td>
+                        <td style="text-align: center;"><span class="val" style="width: 100%;">-</span></td>
+                        <td style="text-align: left; padding-left: 3px;">коп.</td>
+                    </tr>
+                </table>
+
+                <!-- Section 2: Precious metals -->
+                <p class="dl ds"><b>2. Изделия из драгоценных металлов:</b></p>
+                <p class="dl">Залоговых билетов (количество) <span class="val val-md" id="s2Qty"></span> шт.</p>
+                <p class="dl">На общую сумму займа <span class="val val-lg" id="s2Rub"></span> руб. <span class="val val-sm" id="s2Kop"></span> коп.</p>
+
+                <!-- Section 3: Other items -->
+                <p class="dl ds"><b>3. Изделия прочие:</b></p>
+                <p class="dl">Залоговых билетов (количество) <span class="val val-md" id="s3Qty"></span> шт.</p>
+                <p class="dl">На общую сумму займа <span class="val val-lg" id="s3Rub"></span> руб. <span class="val val-sm" id="s3Kop"></span> коп.</p>
+
+                <!-- Section 4: Storage precious metals -->
+                <p class="dl ds"><b>4. Изделие принятых на хранение из драгоценных металлов:</b></p>
+                <p class="dl">Сохранных квитанций (количество) <span class="val val-md">-</span> шт.</p>
+                <p class="dl">На общую сумму оценки <span class="val val-lg">-</span> руб. <span class="val val-sm">-</span> коп.</p>
+
+                <!-- Section 5: Other storage -->
+                <p class="dl ds"><b>5. Прочее хранение:</b></p>
+                <p class="dl">Сохранных квитанций (количество) <span class="val val-md">-</span> шт.</p>
+                <p class="dl">На общую сумму оценки <span class="val val-lg">-</span> руб. <span class="val val-sm">-</span> коп.</p>
+
+                <!-- Section 6: Showcase -->
+                <p class="dl ds"><b>6. Витрина ломбарда</b></p>
+                
+                <!-- Изделия (Вторая строчка текста скрыта, сумма под количеством) -->
+                <div class="dl" style="margin-top: 1px;"><span style="display: inline-block; width: 260px;">Изделия из драгоценных металлов:</span><span class="val" style="width: 100px;" id="v6dQty"></span> шт.</div>
+                <div class="dl"><span style="display: inline-block; width: 260px; visibility: hidden;">Изделия из драгоценных металлов:</span><span class="val" style="width: 100px;" id="v6dRub"></span> руб. <span class="val val-sm" id="v6dKop"></span> коп.</div>
+
+                <!-- Мех -->
+                <div class="dl" style="margin-top: 3px;"><b class="vit" style="display: inline-block; width: 75px;">Мех</b><span class="val" style="width: 100px;" id="v6fQty"></span> шт.</div>
+                <div class="dl"><b class="vit" style="display: inline-block; width: 75px;">Мех</b><span class="val" style="width: 100px;" id="v6fRub"></span> руб. <span class="val val-sm" id="v6fKop"></span> коп.</div>
+
+                <!-- Техника -->
+                <div class="dl" style="margin-top: 3px;"><b class="vit" style="display: inline-block; width: 75px;">Техника</b><span class="val" style="width: 100px;" id="v6tQty"></span> шт.</div>
+                <div class="dl"><b class="vit" style="display: inline-block; width: 75px;">Техника</b><span class="val" style="width: 100px;" id="v6tRub"></span> руб. <span class="val val-sm" id="v6tKop"></span> коп.</div>
+
+                <!-- Прочее -->
+                <div class="dl" style="margin-top: 3px;"><b class="vit" style="display: inline-block; width: 75px;">Прочее</b><span class="val" style="width: 100px;" id="v6oQty"></span> шт.</div>
+                <div class="dl"><b class="vit" style="display: inline-block; width: 75px;">Прочее</b><span class="val" style="width: 100px;" id="v6oRub"></span> руб. <span class="val val-sm" id="v6oKop"></span> коп.</div>
+
+                <!-- Комиссия & Скупка -->
+                <div class="dl" style="margin-top: 3px;"><b class="vit" style="display: inline-block; width: 75px;">Комиссия</b><span class="val" style="width: 100px;">-</span> шт. <span class="val" style="width: 100px;">-</span> руб. <span class="val val-sm">-</span> коп.</div>
+                <div class="dl" style="margin-top: 1px;"><b class="vit" style="display: inline-block; width: 75px;">Скупка</b><span class="val" style="width: 100px;">-</span> шт. <span class="val" style="width: 100px;">-</span> руб. <span class="val val-sm">-</span> коп.</div>
+
+                <!-- Signatures Table (Поле подписи увеличено в 2 раза - до 110px) -->
+                <table style="width: 100%; border-collapse: collapse; margin-top: 25px; font-size: 11pt;">
+                    <tr>
+                        <td style="width: 45px; padding-bottom: 5px; vertical-align: top; padding-top: 1px;"><b>Сдал:</b></td>
+                        <td style="width: 110px; text-align: center; vertical-align: top; padding-bottom: 5px;">
+                            <div class="val" style="width: 100%; border-bottom: 1px solid #000;"> </div>
+                            <div class="sig-sub" style="margin-top: 1px;">(подпись)</div>
+                        </td>
+                        <td style="width: 130px; text-align: center; vertical-align: top; padding: 0 10px 5px 10px;">
+                            <div class="val" style="width: 100%; border-bottom: 1px solid #000;" id="sigSurrName"></div>
+                            <div class="sig-sub" style="margin-top: 1px;">(расшифровка)</div>
+                        </td>
+                        <td style="vertical-align: top; padding-top: 0px; white-space: nowrap;">
+                            дата <span class="val val-xs" id="sigSurrDay"></span> <span class="val val-md" id="sigSurrMonth"></span> <span id="sigSurrYear"></span> г. Время <span class="val val-xs" id="sigSurrH"></span> ч <span class="val val-xs" id="sigSurrM"></span> м
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 45px; vertical-align: top; padding-top: 1px;"><b>Принял:</b></td>
+                        <td style="width: 110px; text-align: center; vertical-align: top;">
+                            <div class="val" style="width: 100%; border-bottom: 1px solid #000;"> </div>
+                            <div class="sig-sub" style="margin-top: 1px;">(подпись)</div>
+                        </td>
+                        <td style="width: 130px; text-align: center; vertical-align: top; padding: 0 10px;">
+                            <div class="val" style="width: 100%; border-bottom: 1px solid #000;" id="sigAccName"></div>
+                            <div class="sig-sub" style="margin-top: 1px;">(расшифровка)</div>
+                        </td>
+                        <td style="vertical-align: top; padding-top: 0px; white-space: nowrap;">
+                            дата <span class="val val-xs" id="sigAccDay"></span> <span class="val val-md" id="sigAccMonth"></span> <span id="sigAccYear"></span> г. Время <span class="val val-xs" id="sigAccH"></span> ч <span class="val val-xs" id="sigAccM"></span> м
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
+        </main>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
